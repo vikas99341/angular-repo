@@ -23,3 +23,10 @@ phases:
     commands:
       - docker tag my-angular-app:latest ${ECR_IMAGE_URI}
       - docker push ${ECR_IMAGE_URI}
+
+      # Generate image definitions file for ECS
+      - printf '[{"name":"angular-app","imageUri":"%s"}]' ${ECR_IMAGE_URI} > imagedefinitions.json
+
+artifacts:
+  files:
+    - imagedefinitions.json
